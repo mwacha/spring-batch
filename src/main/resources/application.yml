@@ -1,0 +1,21 @@
+#: Application configuration
+spring:
+  batch:
+      initialize-schema: always
+  flyway:
+    baselineOnMigrate: true
+  application:
+    name: springbtach
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/pocs
+    username: pocs
+    password: poc123
+#  jpa:
+#    open-in-view: false
+#    show-sql: true
+#    hibernate:
+#      ddl-auto: none
+
+file:
+  input: product.csv
