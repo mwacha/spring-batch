@@ -87,7 +87,7 @@ import java.net.MalformedURLException;
     @Bean
     public Step step1(JobRepository jobRepository, PlatformTransactionManager transactionManager, FlatFileItemReader<Product> itemReader) throws MalformedURLException {
         return new StepBuilder("step1", jobRepository)
-                .<Product, Product> chunk(10, transactionManager) // intervalo de commits
+                .<Product, Product> chunk(10, transactionManager) // commit-interval
                 .reader(itemReader)
                 .processor(processor())
                 .writer(productItemWriter)

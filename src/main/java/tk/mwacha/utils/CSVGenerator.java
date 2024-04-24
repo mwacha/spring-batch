@@ -1,9 +1,12 @@
 package tk.mwacha.utils;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Random;
 
+@Slf4j
 public class CSVGenerator {
 
     private static final String CSV_FILE_PATH = "src/main/resources/products.csv";
@@ -14,12 +17,11 @@ public class CSVGenerator {
 
     public static void generateCSV(int numLines) {
         try {
-            // FileWriter para escrever no arquivo
+
             FileWriter fileWriter = new FileWriter(CSV_FILE_PATH);
-            // Escreve cabeçalho
+
             fileWriter.write("code,productName,description\n");
 
-            // Gera e escreve linhas de dados
             Random random = new Random();
             for (int i = 0; i < numLines; i++) {
                 String code = generateRandomCode();
@@ -28,12 +30,11 @@ public class CSVGenerator {
                 fileWriter.write(code + "," + productName + "," + description + "\n");
             }
 
-            // Fechar o writer
             fileWriter.close();
 
-            System.out.println("Arquivo CSV gerado com sucesso em: " + CSV_FILE_PATH);
+            log.info("CSV file successfully generated in: {}", CSV_FILE_PATH);
         } catch (IOException e) {
-            System.err.println("Erro ao escrever no arquivo CSV: " + e.getMessage());
+            log.error("Error writing to CSV file: {}", e.getMessage());
         }
     }
 

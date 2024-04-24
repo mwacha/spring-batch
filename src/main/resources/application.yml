@@ -11,11 +11,6 @@ spring:
     url: jdbc:postgresql://localhost:5432/pocs
     username: pocs
     password: poc123
-#  jpa:
-#    open-in-view: false
-#    show-sql: true
-#    hibernate:
-#      ddl-auto: none
 
 file:
   input: product.csv

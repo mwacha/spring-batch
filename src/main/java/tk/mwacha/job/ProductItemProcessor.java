@@ -8,6 +8,7 @@ import tk.mwacha.entity.Product;
 public class ProductItemProcessor implements ItemProcessor<Product, Product> {
 
 
+    // To simulate any process. In this case, we convert the names to uppercase
     @Override
     public Product process(final Product product) {
         final var code = product.getCode().toUpperCase();
