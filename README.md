@@ -1,7 +1,7 @@
 # spring-batch
 Projeto utilizando Spring Batch para processamento de arquivos CSV.
 
-## Como rodar o projeto
+### Como rodar o projeto
 - Gerar Arquivo CSV: Utilize o utilitário CSVGenerator para criar um arquivo CSV com o número desejado de registros.
 - Configuração de Armazenamento: Na classe ProductImportController, altere o valor da constante TEMP_STORAGE para o diretório de sua preferência. Essa configuração simula um armazenamento externo (storage).
 - Inicialização do Banco de Dados: Execute o comando docker-compose up para iniciar o banco de dados PostgreSQL.
