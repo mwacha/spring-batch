@@ -33,6 +33,10 @@ delete from batch_job_execution_params;
 delete from batch_job_execution;
 delete from batch_job_instance;
 ```
+### Dependência
+As seguintes dependências são necessárias:
+- subir o microsserviço client para a disponibilizar a rest api que simula um resultado de análise pelo id do cliente. (EM BREVE)
+  
 
 
 
