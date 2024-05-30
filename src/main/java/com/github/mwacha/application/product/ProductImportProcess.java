@@ -18,7 +18,7 @@ public class ProductImportProcess {
     private final JobLauncher jobLauncher;
 
     @Qualifier("importProductJob")
-    private final Job job;
+    private final Job importProductJob;
 
     private final String TEMP_STORAGE = "/Users/Marcelo/developer/"; // TODO Change to your path
 
@@ -33,7 +33,7 @@ public class ProductImportProcess {
                             .addLong("startAt", System.currentTimeMillis())
                             .toJobParameters();
 
-            jobLauncher.run(job, jobParameters);
+            jobLauncher.run(importProductJob, jobParameters);
 
 
         } catch (Exception e) {

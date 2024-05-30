@@ -22,8 +22,8 @@ public class AnalysisJobProcess {
 
     private final JobLauncher jobLauncher;
 
-    @Qualifier("apiJob")
-    private final Job apiJob;
+    @Qualifier("analysisJob")
+    private final Job analysisJob;
 
     public void execute(final List<Long> clientIds) {
         int batchSize = 10; // Adjust this value according to the maximum length allowed for the parameter string
@@ -39,7 +39,7 @@ public class AnalysisJobProcess {
                     .toJobParameters();
 
             try {
-                jobLauncher.run(apiJob, jobParameters);
+                jobLauncher.run(analysisJob, jobParameters);
             } catch (JobInstanceAlreadyCompleteException | JobExecutionAlreadyRunningException | JobRestartException |
                      JobParametersInvalidException e) {
                 throw new RuntimeException("A job instance already exists and is complete");

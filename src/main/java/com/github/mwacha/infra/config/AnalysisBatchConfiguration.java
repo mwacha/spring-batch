@@ -13,11 +13,10 @@ import org.springframework.batch.core.step.builder.StepBuilder;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.data.RepositoryItemWriter;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
-import org.springframework.core.annotation.Order;
 import org.springframework.transaction.PlatformTransactionManager;
 import com.github.mwacha.domain.analysis.AnalysisResult;
 import com.github.mwacha.domain.analysis.Charge;
@@ -31,7 +30,6 @@ import java.util.List;
 @EnableBatchProcessing
 @Configuration
 @RequiredArgsConstructor
-@Order(2)
 public class AnalysisBatchConfiguration {
 
   private final AnalysisResultRepository analysisResultRepository;
@@ -40,7 +38,6 @@ public class AnalysisBatchConfiguration {
 
   @Bean
   @StepScope
-  @Primary
   public AnalysisChargeItemReader readerDataBase(@Value("#{jobParameters['clientIds']}") List<Long> clientIds) {
     final var item = new AnalysisChargeItemReader();
     item.setClientIds(clientIds);
@@ -61,28 +58,28 @@ public class AnalysisBatchConfiguration {
     return writer;
   }
 
-  @Bean
-  public Job apiJob(
+  @Bean("analysisJob")
+  public Job analysisJob(
           JobRepository jobRepository,
           PlatformTransactionManager transactionManager,
           AnalysisJobCompletionNotificationListener listener,
-          ItemReader itemReader) {
+          @Qualifier("readerDataBase") ItemReader itemReader) {
 
-    return new JobBuilder("apiJob", jobRepository)
+    return new JobBuilder("analysisJob", jobRepository)
             .incrementer(new RunIdIncrementer())
             .listener(listener)
-            .flow(apiStep(jobRepository, transactionManager, itemReader))
+            .flow(analysisStep(jobRepository, transactionManager, itemReader))
             .end()
             .build();
   }
 
   @Bean
-  public Step apiStep(
+  public Step analysisStep(
           JobRepository jobRepository,
           PlatformTransactionManager transactionManager,
-          ItemReader itemReader) {
+          @Qualifier("readerDataBase") ItemReader itemReader) {
 
-    return new StepBuilder("apiStep", jobRepository)
+    return new StepBuilder("analysisStep", jobRepository)
             .<Charge, AnalysisResult>chunk(10, transactionManager) // commit-interval
             .reader(itemReader)
             .processor(apiProcessor())

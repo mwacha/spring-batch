@@ -21,18 +21,16 @@ import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
 import org.springframework.batch.item.file.mapping.DefaultLineMapper;
 import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
-import org.springframework.core.annotation.Order;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.transaction.PlatformTransactionManager;
 
 @EnableBatchProcessing
 @Configuration
 @RequiredArgsConstructor
-@Order(1)
 public class ImportBatchConfiguration {
 
   private final ProductRepository productRepository;
@@ -79,13 +77,12 @@ public class ImportBatchConfiguration {
     return writer;
   }
 
-  @Bean
-  @Primary
+  @Bean("importProductJob")
   public Job importProductJob(
       JobRepository jobRepository,
       PlatformTransactionManager transactionManager,
       ImportJobCompletionNotificationListener listener,
-      FlatFileItemReader<Product> itemReader)
+      @Qualifier("reader") FlatFileItemReader<Product> itemReader)
       throws MalformedURLException {
 
     return new JobBuilder("importProductJob", jobRepository)
@@ -101,7 +98,7 @@ public class ImportBatchConfiguration {
   public Step importStep(
       JobRepository jobRepository,
       PlatformTransactionManager transactionManager,
-      FlatFileItemReader<Product> itemReader)
+      @Qualifier("reader") FlatFileItemReader<Product> itemReader)
       throws MalformedURLException {
     return new StepBuilder("importStep", jobRepository)
         .<Product, Product>chunk(10, transactionManager) // commit-interval
