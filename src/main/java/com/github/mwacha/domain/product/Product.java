@@ -1,12 +1,10 @@
-package tk.mwacha.entity;
+package com.github.mwacha.domain.product;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import java.util.UUID;
 import lombok.*;
 import org.hibernate.annotations.UuidGenerator;
-
-import java.util.UUID;
-
 
 @Getter
 @Setter
@@ -15,10 +13,8 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Product {
-    @Id
-    @UuidGenerator
-    private UUID id;
-    private String code;
-    private String productName;
-    private String description;
+  @Id @UuidGenerator private UUID id;
+  private String code;
+  private String productName;
+  private String description;
 }
