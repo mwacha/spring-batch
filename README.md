@@ -1,6 +1,12 @@
 # spring-batch
-Projeto utilizando Spring Batch 
+Este projeto utiliza Spring Batch para fornecer dois endpoints principais:
 
+### Importação de Produtos:
+- Permite a importação de produtos a partir de um arquivo CSV para o banco de dados.
+
+### Análise de Dados:
+- Realiza a análise de dados chamando uma API externa que simula um resultado de aprovação ou rejeição, armazenando os resultados no banco de dados.
+  
 ## Para processamento de arquivos CSV.
 ### Como rodar o projeto
 - Gerar Arquivo CSV: Utilize o utilitário CSVGenerator para criar um arquivo CSV com o número desejado de registros.
