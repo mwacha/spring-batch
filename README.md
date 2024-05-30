@@ -41,7 +41,7 @@ delete from batch_job_instance;
 ```
 ### Dependência
 As seguintes dependências são necessárias:
-- subir o microsserviço client para a disponibilizar a rest api que simula um resultado de análise pelo id do cliente. (EM BREVE)
+- Publicar o microsserviço "Client" para disponibilizar a API REST que simula o resultado de análise baseado no ID do cliente. (EM BREVE)
   
 
 
