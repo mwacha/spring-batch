@@ -1,13 +1,40 @@
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
+
+CREATE TABLE import_product
+(
+    id           UUID NOT NULL DEFAULT uuid_generate_v1mc(),
+    status       TEXT  CHECK (char_length(status) <= 10)   NOT NULL DEFAULT 'PROCESSING',
+    CONSTRAINT import_status_pkey PRIMARY KEY (id)
+);
+
+
+
 CREATE TABLE product
+(
+    id           UUID NOT NULL DEFAULT uuid_generate_v1mc(),
+    import_product_id UUID,
+    code         TEXT  CHECK (char_length(code) <= 100)   NOT NULL,
+    product_name TEXT  CHECK (char_length(product_name) <= 100) NOT NULL,
+    status       TEXT  CHECK (char_length(code) <= 10)   NOT NULL DEFAULT 'PROCESSING',
+    description text CHECK (char_length(description) <= 250) NULL,
+    CONSTRAINT product_pkey PRIMARY KEY (id),
+    CONSTRAINT import_product_fkey FOREIGN KEY (import_product_id) REFERENCES  public.import_product(id)
+);
+
+CREATE TABLE product_inventory
 (
     id           UUID NOT NULL DEFAULT uuid_generate_v1mc(),
     code         TEXT  CHECK (char_length(code) <= 100)   NOT NULL,
     product_name TEXT  CHECK (char_length(product_name) <= 100) NOT NULL,
     description text CHECK (char_length(description) <= 250) NULL,
-    CONSTRAINT product_pkey PRIMARY KEY (id)
+    CONSTRAINT product_inventory_pkey PRIMARY KEY (id)
 );
+
+CREATE INDEX product_id_idx
+    ON public.product
+    USING btree
+    (import_product_id);
 
 CREATE TABLE IF NOT EXISTS charge
 (

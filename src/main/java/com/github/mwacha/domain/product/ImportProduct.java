@@ -5,9 +5,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
-import java.util.UUID;
 import lombok.*;
 import org.hibernate.annotations.UuidGenerator;
+
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -15,15 +16,10 @@ import org.hibernate.annotations.UuidGenerator;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-public class Product {
+public class ImportProduct {
   @Id @UuidGenerator private UUID id;
-  private String code;
-  private String productName;
-  private String description;
-
-  private UUID importProductId;
 
   @Enumerated(EnumType.STRING)
-  @Builder.Default
-  private ImportStatus status = ImportStatus.PROCESSING;
+  private ImportStatus status;
+
 }

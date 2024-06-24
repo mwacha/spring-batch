@@ -15,6 +15,14 @@ spring:
     multipart.max-file-size: 10MB
     max-request-size: 10MB
     resolve-lazily: true
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: user
+    password: user123
+    virtual-host: /
+    producer: SEND_INVENTORY
+    consumer: SEND_IMPORTER
 
 file:
   input: product.csv

@@ -11,7 +11,7 @@ public class CSVGenerator {
   private static final String CSV_FILE_PATH = "src/main/resources/products.csv";
 
   public static void main(String[] args) {
-    generateCSV(6000);
+    generateCSV(30000);
   }
 
   public static void generateCSV(int numLines) {

@@ -1,4 +1,4 @@
-package com.github.mwacha.infra.product.controller;
+package com.github.mwacha.infra.product.api.controller;
 
 import java.io.File;
 
