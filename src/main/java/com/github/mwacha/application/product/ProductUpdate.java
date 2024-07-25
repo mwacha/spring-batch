@@ -5,17 +5,15 @@ import com.github.mwacha.infra.product.repository.ProductRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 @Service
 @RequiredArgsConstructor
 public class ProductUpdate {
 
+  private final ProductRepository repository;
 
-    private final ProductRepository repository;
-
-    @Transactional
-    public void execute(final EventResult event) {
-        repository.updateStatus(event.id(), event.status());
-    }
+  @Transactional
+  public void execute(final EventResult event) {
+    repository.updateStatus(event.id(), event.status());
+  }
 }

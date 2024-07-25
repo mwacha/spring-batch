@@ -1,7 +1,5 @@
 package com.github.mwacha.infra.product.api.controller;
 
-import java.io.File;
-
 import com.github.mwacha.application.product.ProductImportProcess;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

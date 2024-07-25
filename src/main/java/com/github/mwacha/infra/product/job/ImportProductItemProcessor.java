@@ -1,24 +1,21 @@
 package com.github.mwacha.infra.product.job;
 
-import lombok.RequiredArgsConstructor;
+import static com.github.mwacha.shared.JsonMapper.toJson;
+
+import com.github.mwacha.domain.product.Product;
+import com.github.mwacha.process.AbstractItemProcessor;
+import java.util.UUID;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.batch.item.ItemProcessor;
-import com.github.mwacha.domain.product.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
-import java.util.UUID;
-
-import static com.github.mwacha.shared.JsonMapper.toJson;
-
 @Slf4j
-public class ImportProductItemProcessor implements ItemProcessor<Product, Product> {
-  @Autowired
-  private  RabbitTemplate rabbitTemplate;
- @Value("${spring.rabbitmq.producer}")
-  private  String producerQueueName;
+public class ImportProductItemProcessor extends AbstractItemProcessor<Product, Product> {
+  @Autowired private RabbitTemplate rabbitTemplate;
 
+  @Value("${spring.rabbitmq.producer}")
+  private String producerQueueName;
 
   @Override
   public Product process(final Product product) {
@@ -28,7 +25,13 @@ public class ImportProductItemProcessor implements ItemProcessor<Product, Produc
     final var importProductId = product.getImportProductId();
 
     final var transformedProduct =
-        Product.builder().id(UUID.randomUUID()).code(code).importProductId(importProductId).productName(productName).description(description).build();
+        Product.builder()
+            .id(UUID.randomUUID())
+            .code(code)
+            .importProductId(importProductId)
+            .productName(productName)
+            .description(description)
+            .build();
 
     rabbitTemplate.convertAndSend(producerQueueName, toJson(transformedProduct));
 

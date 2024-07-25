@@ -1,14 +1,13 @@
 package com.github.mwacha.shared;
 
+import static lombok.AccessLevel.PRIVATE;
+
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.TypeFactory;
+import java.util.List;
 import lombok.NoArgsConstructor;
 import lombok.SneakyThrows;
-
-import java.util.List;
-
-import static lombok.AccessLevel.PRIVATE;
 
 @NoArgsConstructor(access = PRIVATE)
 public class JsonMapper {
