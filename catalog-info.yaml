@@ -41,29 +41,29 @@ spec:
   owner: mwacha                        # Proprietário da API
   definition:                          # Definição da API OpenAPI
     $text: http://localhost:8080/v3/api-docs  # Link para o JSON da OpenAPI
----
-apiVersion: backstage.io/v1alpha1
-kind: API
-metadata:
-  name: startJob-api
-  namespace: default
-  description: "API to start a job"
-spec:
-  type: openapi
-  lifecycle: production
-  owner: my-team
-  definition: http://localhost:8080/api/startJob
-
----
-# Definindo a API import-products
-apiVersion: backstage.io/v1alpha1
-kind: API
-metadata:
-  name: import-products-api
-  namespace: default
-  description: "API to import products"
-spec:
-  type: openapi
-  lifecycle: production
-  owner: my-team
-  definition: http://localhost:8080/api/import-products
+#---
+#apiVersion: backstage.io/v1alpha1
+#kind: API
+#metadata:
+#  name: startJob-api
+#  namespace: default
+#  description: "API to start a job"
+#spec:
+#  type: openapi
+#  lifecycle: production
+#  owner: my-team
+#  definition: http://localhost:8080/api/startJob
+#
+#---
+## Definindo a API import-products
+#apiVersion: backstage.io/v1alpha1
+#kind: API
+#metadata:
+#  name: import-products-api
+#  namespace: default
+#  description: "API to import products"
+#spec:
+#  type: openapi
+#  lifecycle: production
+#  owner: my-team
+#  definition: http://localhost:8080/api/import-products
