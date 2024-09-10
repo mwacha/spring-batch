@@ -1,66 +1,66 @@
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-  name: springboot-batch    # Nome do seu microserviço
+  name: springboot-batch
   description: "Microsserviço responsável pelo processamento batch em csv"
-  owner: mwacha           # Nome da equipe responsável pelo microserviço
+  owner: mwacha
   tags:
     - springboot
     - swagger
     - java
 spec:
-  type: service                    # Tipo do componente
-  lifecycle: production            # Ciclo de vida do componente
-  owner: mwacha         # Proprietário do serviço (adicionado aqui no spec)
-  system: backend                  # Sistema ao qual o serviço pertence
+  type: service
+  lifecycle: production
+  owner: mwacha
+  system: backend
   providesApis:
-    - "hello-api"                  # API fornecida pelo serviço
-  consumesApis: [ ]                # APIs consumidas (se houver)
+    - "hello-api"  # Certifique-se de que este valor está correto e corresponde ao nome da API definida abaixo
+  consumesApis: []
   links:
-    - url: "https://github.com/mwacha/springboot-batch" # Link para o repositório do GitHub
-      title: "Repo"             # Título do link
+    - url: "https://github.com/mwacha/springboot-batch"
+      title: "Repo"
     - url: "http://localhost:8080/swagger-ui.html"
-      title: "Swagger UI"           # Link para a documentação Swagger
+      title: "Swagger UI"
     - url: "http://localhost:8080/actuator"
-      title: "Actuator"             # Link para o Actuator
-
+      title: "Actuator"
 
 ---
 apiVersion: backstage.io/v1alpha1
 kind: API
 metadata:
-  name: springboot-batch
+  name: hello-api  # O nome aqui deve corresponder ao valor em providesApis no componente
   description: "API do microsserviço Spring Boot Batch"
   owner: mwacha
 spec:
-  type: openapi                        # Tipo da API
-  lifecycle: production                # Ciclo de vida da API
-  owner: mwacha                        # Proprietário da API
-  definition:                          # Definição da API OpenAPI
-    $text: http://localhost:8080/v3/api-docs  # Link para o JSON da OpenAPI
-#---
-#apiVersion: backstage.io/v1alpha1
-#kind: API
-#metadata:
-#  name: startJob-api
-#  namespace: default
-#  description: "API to start a job"
-#spec:
-#  type: openapi
-#  lifecycle: production
-#  owner: my-team
-#  definition: http://localhost:8080/api/startJob
-#
-#---
-## Definindo a API import-products
-#apiVersion: backstage.io/v1alpha1
-#kind: API
-#metadata:
-#  name: import-products-api
-#  namespace: default
-#  description: "API to import products"
-#spec:
-#  type: openapi
-#  lifecycle: production
-#  owner: my-team
-#  definition: http://localhost:8080/api/import-products
+  type: openapi
+  lifecycle: production
+  owner: mwacha
+  definition:
+    $text: http://localhost:8080/v3/api-docs
+
+# Se você deseja definir as outras APIs que estão comentadas, certifique-se de removê-las dos comentários e que elas estejam corretamente referenciadas.
+# Para o exemplo:
+
+# ---
+# apiVersion: backstage.io/v1alpha1
+# kind: API
+# metadata:
+#   name: startJob-api
+#   description: "API to start a job"
+#   owner: my-team
+# spec:
+#   type: openapi
+#   lifecycle: production
+#   definition: http://localhost:8080/api/startJob
+
+# ---
+# apiVersion: backstage.io/v1alpha1
+# kind: API
+# metadata:
+#   name: import-products-api
+#   description: "API to import products"
+#   owner: my-team
+# spec:
+#   type: openapi
+#   lifecycle: production
+#   definition: http://localhost:8080/api/import-products
