@@ -44,21 +44,22 @@ kind: API
 metadata:
   name: startJob-api
   description: "API to start a job"
-  owner: my-team
+  owner: mwacha
 spec:
   type: openapi
   lifecycle: production
   owner: mwacha
   definition: http://localhost:8080/api/startJob
 
-# ---
-# apiVersion: backstage.io/v1alpha1
-# kind: API
-# metadata:
-#   name: import-products-api
-#   description: "API to import products"
-#   owner: my-team
-# spec:
-#   type: openapi
-#   lifecycle: production
-#   definition: http://localhost:8080/api/import-products
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: import-products-api
+  description: "API to import products"
+  owner: mwacha
+spec:
+  type: openapi
+  lifecycle: production
+  owner: mwacha
+  definition: http://localhost:8080/api/import-products
