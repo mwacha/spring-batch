@@ -14,8 +14,8 @@ spec:
   owner: mwacha         # Proprietário do serviço (adicionado aqui no spec)
   system: backend                  # Sistema ao qual o serviço pertence
   providesApis:
-    - api:default/startJob-api
-    - api:default/import-products-api
+    - api: default/startJob-api
+    - api: default/import-products-api
 
   consumesApis: ["http://localhost:8091/results"]                 # APIs consumidas (se houver)
   links:
