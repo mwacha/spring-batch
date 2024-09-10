@@ -14,7 +14,7 @@ spec:
   owner: mwacha
   system: backend
   providesApis:
-    - "hello-api"  # Certifique-se de que este valor está correto e corresponde ao nome da API definida abaixo
+    - "startJob-api"  # Certifique-se de que este valor está correto e corresponde ao nome da API definida abaixo
   consumesApis: ["http://localhost:8091/results"]
   links:
     - url: "https://github.com/mwacha/springboot-batch"
@@ -28,7 +28,7 @@ spec:
 apiVersion: backstage.io/v1alpha1
 kind: API
 metadata:
-  name: hello-api  # O nome aqui deve corresponder ao valor em providesApis no componente
+  name: swagger  # O nome aqui deve corresponder ao valor em providesApis no componente
   description: "API do microsserviço Spring Boot Batch"
   owner: mwacha
 spec:
