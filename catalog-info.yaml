@@ -38,18 +38,18 @@ spec:
   definition:
     $text: http://localhost:8080/v3/api-docs
 
----
-apiVersion: backstage.io/v1alpha1
-kind: API
-metadata:
-  name: startJob-api
-  description: "API to start a job"
-  owner: mwacha
-spec:
-  type: openapi
-  lifecycle: production
-  owner: mwacha
-  definition: http://localhost:8080/api/startJob
+#---
+#apiVersion: backstage.io/v1alpha1
+#kind: API
+#metadata:
+#  name: startJob-api
+#  description: "API to start a job"
+#  owner: mwacha
+#spec:
+#  type: openapi
+#  lifecycle: production
+#  owner: mwacha
+#  definition: http://localhost:8080/api/startJob
 
 #---
 #apiVersion: backstage.io/v1alpha1
