@@ -1,5 +1,7 @@
 package com.github.mwacha.infra.product.job;
 
+import com.github.mwacha.process.AbstractItemReader;
+import com.github.mwacha.process.AbstractItemWriter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.Chunk;
@@ -11,7 +13,7 @@ import com.github.mwacha.infra.product.repository.ProductRepository;
 @Component
 @RequiredArgsConstructor
 @Slf4j
-public class ImportProductItemWriter implements ItemWriter<Product> {
+public class ImportProductItemWriter extends AbstractItemWriter<Product> {
 
   private final ProductRepository repository;
 

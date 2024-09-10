@@ -1,4 +1,4 @@
-package com.github.mwacha.infra.config;
+package com.github.mwacha.infra.config.batch;
 
 import com.github.mwacha.infra.analysis.job.AnalysisJobCompletionNotificationListener;
 import lombok.RequiredArgsConstructor;

@@ -1,13 +1,17 @@
-package com.github.mwacha.infra.config;
+package com.github.mwacha.infra.config.batch;
 
 import java.io.File;
 import java.net.MalformedURLException;
+import java.util.UUID;
 
+import com.github.mwacha.config.AbstractBatchJobConfig;
 import com.github.mwacha.domain.product.Product;
 import com.github.mwacha.infra.product.job.ImportJobCompletionNotificationListener;
 import com.github.mwacha.infra.product.job.ImportProductItemProcessor;
 import com.github.mwacha.infra.product.job.ImportProductItemWriter;
 import com.github.mwacha.infra.product.repository.ProductRepository;
+import com.github.mwacha.listener.JobNotificationListener;
+import com.github.mwacha.process.AbstractItemReader;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.*;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
@@ -27,42 +31,49 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.batch.item.file.transform.FieldSet;
+import org.springframework.validation.BindException;
 
-@EnableBatchProcessing
-@Configuration
+
 @RequiredArgsConstructor
-public class ImportBatchConfiguration {
+public class ImportBatchConfiguration extends AbstractBatchJobConfig {
 
   private final ProductRepository productRepository;
 
   private final ImportProductItemWriter productItemWriter;
 
-  @Bean
-  @StepScope
-  public FlatFileItemReader<Product> reader(
-      @Value("#{jobParameters['inputResource']}") String pathToFIle) throws MalformedURLException {
-    FlatFileItemReader<Product> reader = new FlatFileItemReader<>();
-    reader.setResource(new FileSystemResource(new File(pathToFIle)));
-    reader.setLinesToSkip(1);
-    reader.setLineMapper(
-        new DefaultLineMapper<Product>() {
-          {
-            setLineTokenizer(
-                new DelimitedLineTokenizer() {
-                  {
-                    setNames("code", "productName", "description");
-                  }
-                });
-            setFieldSetMapper(
-                new BeanWrapperFieldSetMapper<Product>() {
-                  {
-                    setTargetType(Product.class);
-                  }
-                });
-          }
-        });
-    return reader;
-  }
+    @Bean
+    @StepScope
+    public FlatFileItemReader<Product> reader(
+            @Value("#{jobParameters['inputResource']}") String pathToFile,
+            @Value("#{jobParameters['importId']}") String importId) throws MalformedURLException {
+
+        FlatFileItemReader<Product> reader = new FlatFileItemReader<>();
+        reader.setResource(new FileSystemResource(new File(pathToFile)));
+        reader.setLinesToSkip(1);
+
+        DefaultLineMapper<Product> lineMapper = new DefaultLineMapper<>();
+        DelimitedLineTokenizer tokenizer = new DelimitedLineTokenizer();
+        tokenizer.setNames("code", "productName", "description");
+        lineMapper.setLineTokenizer(tokenizer);
+
+        // Using lambda for FieldSetMapper to set importId
+        BeanWrapperFieldSetMapper<Product> fieldSetMapper = new BeanWrapperFieldSetMapper<>() {
+            @Override
+            public Product mapFieldSet(FieldSet fieldSet) throws BindException {
+                Product product = super.mapFieldSet(fieldSet);
+                product.setImportProductId(UUID.fromString(importId));
+                return product;
+            }
+        };
+        fieldSetMapper.setTargetType(Product.class);
+        lineMapper.setFieldSetMapper(fieldSetMapper);
+
+        reader.setLineMapper(lineMapper);
+
+        return reader;
+    }
+
 
   @Bean
   public ImportProductItemProcessor processor() {
@@ -93,18 +104,29 @@ public class ImportBatchConfiguration {
         .build();
   }
 
+    @Override
+    public Job job(JobRepository jobRepository, PlatformTransactionManager transactionManager, JobNotificationListener listener, AbstractItemReader reader) {
+        return null;
+    }
 
-  @Bean
+
+    @Bean
   public Step importStep(
       JobRepository jobRepository,
       PlatformTransactionManager transactionManager,
       @Qualifier("reader") FlatFileItemReader<Product> itemReader)
       throws MalformedURLException {
     return new StepBuilder("importStep", jobRepository)
-        .<Product, Product>chunk(10, transactionManager) // commit-interval
+        .<Product, Product>chunk(100, transactionManager) // commit-interval
         .reader(itemReader)
         .processor(processor())
         .writer(productItemWriter)
         .build();
   }
+
+
+    @Override
+    public Step step(JobRepository jobRepository, PlatformTransactionManager transactionManager, AbstractItemReader reader) {
+        return null;
+    }
 }
