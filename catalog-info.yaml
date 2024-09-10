@@ -13,7 +13,10 @@ spec:
   lifecycle: production            # Ciclo de vida do componente
   owner: mwacha         # Proprietário do serviço (adicionado aqui no spec)
   system: backend                  # Sistema ao qual o serviço pertence
-#  providesApis:
+  providesApis:
+    - "hello-api"                  # API fornecida pelo serviço
+  consumesApis: [ ]
+  #  providesApis:
 #    - api: "default/startJob-api"
 #    - api: "default/import-products-api"
 
