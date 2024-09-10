@@ -17,7 +17,8 @@ spec:
 #    - api: "default/startJob-api"
 #    - api: "default/import-products-api"
 
-  consumesApis: ["http://localhost:8091/results"]                 # APIs consumidas (se houver)
+  consumesApis:
+#    ["http://localhost:8091/results"]                 # APIs consumidas (se houver)
   links:
     - url: "https://github.com/mwacha/springboot-batch" # Link para o repositório do GitHub
       title: "Repo"             # Título do link
