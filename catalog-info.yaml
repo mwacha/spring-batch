@@ -38,20 +38,18 @@ spec:
   definition:
     $text: http://localhost:8080/v3/api-docs
 
-# Se você deseja definir as outras APIs que estão comentadas, certifique-se de removê-las dos comentários e que elas estejam corretamente referenciadas.
-# Para o exemplo:
-
-# ---
-# apiVersion: backstage.io/v1alpha1
-# kind: API
-# metadata:
-#   name: startJob-api
-#   description: "API to start a job"
-#   owner: my-team
-# spec:
-#   type: openapi
-#   lifecycle: production
-#   definition: http://localhost:8080/api/startJob
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: startJob-api
+  description: "API to start a job"
+  owner: my-team
+spec:
+  type: openapi
+  lifecycle: production
+  owner: mwacha
+  definition: http://localhost:8080/api/startJob
 
 # ---
 # apiVersion: backstage.io/v1alpha1
