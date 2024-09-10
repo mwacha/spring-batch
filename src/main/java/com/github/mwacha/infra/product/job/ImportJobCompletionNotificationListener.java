@@ -4,6 +4,7 @@ import com.github.mwacha.domain.product.ImportProduct;
 import com.github.mwacha.domain.product.enums.ImportStatus;
 import com.github.mwacha.infra.product.repository.ImportProductRepository;
 import com.github.mwacha.infra.product.repository.ProductRepository;
+import com.github.mwacha.listener.JobNotificationListener;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,21 +18,12 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class ImportJobCompletionNotificationListener implements JobExecutionListener {
+public class ImportJobCompletionNotificationListener extends JobNotificationListener {
 
 
   private final ProductRepository repository;
 
   private final ImportProductRepository productImportRepository;
-
-//  @Override
-//  public void beforeJob(JobExecution jobExecution) {
-//    productImportStatusRepository.save(
-//            ImportProduct.builder()
-//                    .id(UUID.randomUUID())
-//                    .status(ImportStatus.PROCESSING)
-//                    .build());
-//  }
 
 
   @Override

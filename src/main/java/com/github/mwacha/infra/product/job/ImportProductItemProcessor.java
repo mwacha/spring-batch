@@ -1,5 +1,6 @@
 package com.github.mwacha.infra.product.job;
 
+import com.github.mwacha.process.AbstractItemProcessor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -13,7 +14,7 @@ import java.util.UUID;
 import static com.github.mwacha.shared.JsonMapper.toJson;
 
 @Slf4j
-public class ImportProductItemProcessor implements ItemProcessor<Product, Product> {
+public class ImportProductItemProcessor extends AbstractItemProcessor<Product, Product> {
   @Autowired
   private  RabbitTemplate rabbitTemplate;
  @Value("${spring.rabbitmq.producer}")

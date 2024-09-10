@@ -4,11 +4,14 @@ import java.io.File;
 import java.net.MalformedURLException;
 import java.util.UUID;
 
+import com.github.mwacha.config.AbstractBatchJobConfig;
 import com.github.mwacha.domain.product.Product;
 import com.github.mwacha.infra.product.job.ImportJobCompletionNotificationListener;
 import com.github.mwacha.infra.product.job.ImportProductItemProcessor;
 import com.github.mwacha.infra.product.job.ImportProductItemWriter;
 import com.github.mwacha.infra.product.repository.ProductRepository;
+import com.github.mwacha.listener.JobNotificationListener;
+import com.github.mwacha.process.AbstractItemReader;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.*;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
@@ -31,10 +34,9 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.batch.item.file.transform.FieldSet;
 import org.springframework.validation.BindException;
 
-@EnableBatchProcessing
-@Configuration
+
 @RequiredArgsConstructor
-public class ImportBatchConfiguration {
+public class ImportBatchConfiguration extends AbstractBatchJobConfig {
 
   private final ProductRepository productRepository;
 
@@ -102,8 +104,13 @@ public class ImportBatchConfiguration {
         .build();
   }
 
+    @Override
+    public Job job(JobRepository jobRepository, PlatformTransactionManager transactionManager, JobNotificationListener listener, AbstractItemReader reader) {
+        return null;
+    }
 
-  @Bean
+
+    @Bean
   public Step importStep(
       JobRepository jobRepository,
       PlatformTransactionManager transactionManager,
@@ -116,4 +123,10 @@ public class ImportBatchConfiguration {
         .writer(productItemWriter)
         .build();
   }
+
+
+    @Override
+    public Step step(JobRepository jobRepository, PlatformTransactionManager transactionManager, AbstractItemReader reader) {
+        return null;
+    }
 }

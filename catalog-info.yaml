@@ -1,0 +1,41 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: springboot-batch    # Nome do seu microserviço
+  description: "Microsserviço responsável pelo processamento batch em csv"
+  owner: mwacha           # Nome da equipe responsável pelo microserviço
+  tags:
+    - springboot
+    - swagger
+    - java
+spec:
+  type: service                    # Tipo do componente
+  lifecycle: production            # Ciclo de vida do componente
+  owner: mwacha         # Proprietário do serviço (adicionado aqui no spec)
+  system: backend                  # Sistema ao qual o serviço pertence
+  providesApis: ["http://localhost:8080/api/startJob",
+                 "http://localhost:8080/api/import-products"]                  # API fornecida pelo serviço
+
+  consumesApis: ["http://localhost:8091/results"]                 # APIs consumidas (se houver)
+  links:
+    - url: "https://github.com/mwacha/springboot-batch" # Link para o repositório do GitHub
+      title: "Repo"             # Título do link
+    - url: "http://localhost:8080/swagger-ui.html"
+      title: "Swagger UI"           # Link para a documentação Swagger
+    - url: "http://localhost:8080/actuator"
+      title: "Actuator"             # Link para o Actuator
+
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: springboot-batch
+  description: "API do microsserviço Spring Boot Batch"
+  owner: mwacha
+spec:
+  type: openapi                        # Tipo da API
+  lifecycle: production                # Ciclo de vida da API
+  owner: mwacha                        # Proprietário da API
+  definition:                          # Definição da API OpenAPI
+    $text: http://localhost:8080/v3/api-docs  # Link para o JSON da OpenAPI
