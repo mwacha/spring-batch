@@ -15,7 +15,7 @@ spec:
   system: backend
   providesApis:
     - "hello-api"  # Certifique-se de que este valor está correto e corresponde ao nome da API definida abaixo
-  consumesApis: []
+  consumesApis: ["http://localhost:8091/results"]
   links:
     - url: "https://github.com/mwacha/springboot-batch"
       title: "Repo"
