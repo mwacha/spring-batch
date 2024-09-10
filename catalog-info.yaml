@@ -14,8 +14,10 @@ spec:
   owner: mwacha
   system: backend
   providesApis:
-    - "startJob-api"  # Certifique-se de que este valor está correto e corresponde ao nome da API definida abaixo
-  consumesApis: ["http://localhost:8091/results"]
+    - "default/hello-api"  # Nome da API fornecida pelo serviço
+    - "default/startJob-api"
+    - "default/import-products-api"
+  consumesApis: []
   links:
     - url: "https://github.com/mwacha/springboot-batch"
       title: "Repo"
@@ -28,8 +30,8 @@ spec:
 apiVersion: backstage.io/v1alpha1
 kind: API
 metadata:
-  name: swagger  # O nome aqui deve corresponder ao valor em providesApis no componente
-  description: "API do microsserviço Spring Boot Batch"
+  name: hello-api
+  description: "API para saudações do microsserviço Spring Boot Batch"
   owner: mwacha
 spec:
   type: openapi
@@ -43,23 +45,25 @@ apiVersion: backstage.io/v1alpha1
 kind: API
 metadata:
   name: startJob-api
-  description: "API to start a job"
+  description: "API para iniciar um job"
   owner: mwacha
 spec:
   type: openapi
   lifecycle: production
   owner: mwacha
-  definition: http://localhost:8080/api/startJob
+  definition:
+    $text: http://localhost:8080/api/startJob
 
 ---
 apiVersion: backstage.io/v1alpha1
 kind: API
 metadata:
   name: import-products-api
-  description: "API to import products"
+  description: "API para importar produtos"
   owner: mwacha
 spec:
   type: openapi
   lifecycle: production
   owner: mwacha
-  definition: http://localhost:8080/api/import-products
+  definition:
+    $text: http://localhost:8080/api/import-products
