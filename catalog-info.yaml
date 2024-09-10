@@ -13,8 +13,9 @@ spec:
   lifecycle: production            # Ciclo de vida do componente
   owner: mwacha         # Proprietário do serviço (adicionado aqui no spec)
   system: backend                  # Sistema ao qual o serviço pertence
-  providesApis: ["http://localhost:8080/api/startJob",
-                 "http://localhost:8080/api/import-products"]                  # API fornecida pelo serviço
+  providesApis:
+    - "http://localhost:8080/api/startJob"
+    - "http://localhost:8080/api/import-products"              # API fornecida pelo serviço
 
   consumesApis: ["http://localhost:8091/results"]                 # APIs consumidas (se houver)
   links:
