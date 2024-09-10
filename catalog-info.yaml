@@ -1,7 +1,7 @@
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-  name: springboot-batch
+  name: spring-batch
   description: "Microsserviço responsável pelo processamento batch em csv"
   owner: mwacha
   tags:
@@ -17,7 +17,7 @@ spec:
     - "hello-api"  # Certifique-se de que este valor está correto e corresponde ao nome da API definida abaixo
   consumesApis: []
   links:
-    - url: "https://github.com/mwacha/springboot-batch"
+    - url: "https://github.com/mwacha/spring-batch"
       title: "Repo"
     - url: "http://localhost:8080/swagger-ui.html"
       title: "Swagger UI"
