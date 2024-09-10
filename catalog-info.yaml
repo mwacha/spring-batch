@@ -14,7 +14,7 @@ spec:
   owner: mwacha
   system: backend
   providesApis:
-    - "default/startJob-api"  # Certifique-se de que este valor está correto e corresponde ao nome da API definida abaixo
+    - "hello-api"  # Certifique-se de que este valor está correto e corresponde ao nome da API definida abaixo
   consumesApis: ["http://localhost:8091/results"]
   links:
     - url: "https://github.com/mwacha/springboot-batch"
