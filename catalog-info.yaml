@@ -13,11 +13,11 @@ spec:
   lifecycle: production            # Ciclo de vida do componente
   owner: mwacha         # Proprietário do serviço (adicionado aqui no spec)
   system: backend                  # Sistema ao qual o serviço pertence
-  providesApis:
+#  providesApis:
 #    - api: "default/startJob-api"
 #    - api: "default/import-products-api"
 
-  consumesApis:
+#  consumesApis:
 #    ["http://localhost:8091/results"]                 # APIs consumidas (se houver)
   links:
     - url: "https://github.com/mwacha/springboot-batch" # Link para o repositório do GitHub
